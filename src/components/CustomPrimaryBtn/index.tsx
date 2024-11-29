@@ -9,7 +9,7 @@ interface CustomPrimaryBtnProps {
 const CustomPrimaryBtn = ({ title }: CustomPrimaryBtnProps) => {
   const StyledCustomPrimaryBtn = styled.div`
     .custom-primary-btn {
-      border-radius: 1rem;
+      border-radius: 1.25rem;
       min-width: 180px;
     }
   `;

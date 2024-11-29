@@ -1,19 +1,24 @@
 import { Box, Container, Grid2, Stack, Typography } from "@mui/material";
-import { CustomPrimaryBtn, ProductCard } from "../../../../../components";
-import { collectionList } from "../../../../../constants";
+import {
+  CustomPrimaryBtn,
+  ProductCard,
+  ReviewCard,
+} from "../../../../../components";
+import { getProductList, reviewList } from "../../../../../constants";
 import banner1 from "../../../../../assets/banners/banner1.png";
+import banner2 from "../../../../../assets/banners/banner2.png";
+import banner3 from "../../../../../assets/banners/banner3.png";
 
 const Collection = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#f1eeee",
         paddingBlock: "3rem",
       }}
     >
       <Container maxWidth="lg">
         <Stack gap={4} alignItems="center">
-          <Typography variant="h5">BỘ SƯU TẬP</Typography>
+          <Typography variant="h3">BỘ SƯU TẬP</Typography>
           <Grid2 container rowSpacing={1} columnSpacing={4}>
             <Grid2 size={3}>
               <CustomPrimaryBtn title="Hiện đại" />
@@ -29,7 +34,7 @@ const Collection = () => {
             </Grid2>
           </Grid2>
           <Grid2 container rowSpacing={1} columnSpacing={4}>
-            {collectionList.map(({ id, ...rest }) => (
+            {getProductList([1, 2, 3, 4]).map(({ id, ...rest }) => (
               <Grid2 size={3} key={id}>
                 <ProductCard {...rest} onClick={() => {}} />
               </Grid2>
@@ -64,12 +69,57 @@ const Collection = () => {
                 variant="h6"
                 sx={{ textAlign: "center", color: "#fff" }}
               >
-                Khám phá nội thất thiết kế đương đại mang đến cảm giác thoải
-                mái, sang trọng. Cá nhân hoá trong từng sản phẩm phù hợp với mọi
-                không gian sống
+                Khám phá nội thất thiết kế đương đại mang đến cảm giác <br />
+                thoải mái, sang trọng. Cá nhân hoá trong từng sản phẩm <br />{" "}
+                phù hợp với mọi không gian sống
               </Typography>
             </Stack>
           </Box>
+          <Grid2 container rowSpacing={1} columnSpacing={4}>
+            {getProductList([5, 6]).map(({ id, ...rest }) => (
+              <Grid2 size={3} key={id}>
+                <ProductCard {...rest} onClick={() => {}} />
+              </Grid2>
+            ))}
+            <Grid2 size={6}>
+              <img
+                alt="banner2"
+                src={banner2}
+                style={{
+                  width: "100%",
+                  height: "382px",
+                  objectFit: "cover",
+                  borderRadius: "1rem",
+                }}
+              />
+            </Grid2>
+          </Grid2>
+          <Grid2 container rowSpacing={1} columnSpacing={4}>
+            <Grid2 size={6}>
+              <img
+                alt="banner3"
+                src={banner3}
+                style={{
+                  width: "100%",
+                  height: "382px",
+                  objectFit: "cover",
+                }}
+              />
+            </Grid2>
+            {getProductList([4, 7]).map(({ id, ...rest }) => (
+              <Grid2 size={3} key={id}>
+                <ProductCard {...rest} onClick={() => {}} />
+              </Grid2>
+            ))}
+          </Grid2>
+          <Typography variant="h3">ĐÁNH GIÁ TỪ KHÁCH HÀNG</Typography>
+          <Grid2 container rowSpacing={1} columnSpacing={3}>
+            {reviewList.map((item) => (
+              <Grid2 size={4} key={item.name}>
+                <ReviewCard {...item} />
+              </Grid2>
+            ))}
+          </Grid2>
         </Stack>
       </Container>
     </Box>

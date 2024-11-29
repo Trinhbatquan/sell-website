@@ -15,12 +15,13 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import { Container, Input, Stack } from "@mui/material";
 import logo from "../../../../../assets/image/logo.png";
 import { StyledHeader } from "./styled";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../../../../router.config";
 import { useState } from "react";
 
 export default function Header() {
   const [productEl, setProductEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
   const productMenuId = "primary-search-account-menu";
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setProductEl(event.currentTarget);
@@ -124,7 +125,11 @@ export default function Header() {
                     <NotificationsOutlinedIcon />
                   </Badge>
                 </IconButton>
-                <IconButton size="large" color="inherit">
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={() => navigate(`/${PATH.SHOP}/${PATH.ACCOUNT}`)}
+                >
                   <PersonOutlineOutlinedIcon />
                 </IconButton>
               </Stack>

@@ -5,13 +5,17 @@ import { memo } from "react";
 
 interface CustomSecondaryBtnProps {
   onClick: VoidFunction;
+  title?: string;
 }
 
-const CustomSecondaryBtn = ({ onClick }: CustomSecondaryBtnProps) => {
+const CustomSecondaryBtn = ({
+  onClick,
+  title = "Thêm vào giỏ",
+}: CustomSecondaryBtnProps) => {
   const StyledCustomSecondaryBtn = styled.div`
     .custom-secondary-btn {
       width: 100%;
-      border-radius: 1rem;
+      border-radius: 1.5rem;
       min-width: 200px;
       background-color: #fdcc7f;
     }
@@ -33,7 +37,7 @@ const CustomSecondaryBtn = ({ onClick }: CustomSecondaryBtnProps) => {
         >
           <ShoppingCartOutlinedIcon />
           <Typography variant="h6" sx={{ textTransform: "initial" }}>
-            Thêm vào giỏ
+            {title}
           </Typography>
         </Stack>
       </Button>

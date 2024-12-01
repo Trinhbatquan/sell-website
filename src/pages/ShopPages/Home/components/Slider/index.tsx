@@ -19,7 +19,6 @@ const Slider = () => {
       indicators={false}
       arrows={false}
       duration={4000}
-      pauseOnHover={false}
     >
       <StyledImg src={slider5} alt="slider5" />
       <StyledImg src={slider2} alt="slider2" />

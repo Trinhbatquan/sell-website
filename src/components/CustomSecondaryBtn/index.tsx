@@ -6,28 +6,38 @@ import { memo } from "react";
 interface CustomSecondaryBtnProps {
   onClick: VoidFunction;
   title?: string;
+  type?: "primary" | "secondary";
+  isHaveProductCart: boolean;
 }
 
 const CustomSecondaryBtn = ({
   onClick,
   title = "Thêm vào giỏ",
+  type = "primary",
+  isHaveProductCart,
 }: CustomSecondaryBtnProps) => {
-  const StyledCustomSecondaryBtn = styled.div`
+  const titleConvert = isHaveProductCart ? "Đã có trong giỏ" : title;
+  const StyledCustomSecondaryBtn = styled.div<{
+    type: "primary" | "secondary";
+  }>`
     .custom-secondary-btn {
       width: 100%;
       border-radius: 1.5rem;
       min-width: 200px;
-      background-color: #fdcc7f;
+      background-color: ${({ type }) =>
+        type === "primary" ? "#fdcc7f" : "#fff"};
+      color: ${({ type }) => (type === "primary" ? "#fff" : "#000")};
     }
   `;
 
   return (
-    <StyledCustomSecondaryBtn>
+    <StyledCustomSecondaryBtn type={type}>
       <Button
         className="custom-secondary-btn"
         size="large"
-        variant="contained"
+        variant={type === "primary" ? "contained" : "outlined"}
         onClick={onClick}
+        disabled={isHaveProductCart}
       >
         <Stack
           direction="row"
@@ -37,7 +47,7 @@ const CustomSecondaryBtn = ({
         >
           <ShoppingCartOutlinedIcon />
           <Typography variant="h6" sx={{ textTransform: "initial" }}>
-            {title}
+            {titleConvert}
           </Typography>
         </Stack>
       </Button>

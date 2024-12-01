@@ -1,3 +1,5 @@
+import { ProductType } from "../constants";
+
 export interface IProduct {
   id: number;
   imgLink: string;
@@ -8,4 +10,6 @@ export interface IProduct {
     img: string;
   }>;
   maxQuantity: number;
+  type: ProductType[];
+  color: string;
 }

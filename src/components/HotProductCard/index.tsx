@@ -1,15 +1,28 @@
 import { Grid2, Typography } from "@mui/material";
 import { StyledHotProductCard } from "./styled";
 import { memo } from "react";
+import { ProductType } from "../../constants";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../pages/router.config";
 
 interface HotProductCardProps {
   leftTitle: string;
   imgLink: string;
+  productType: ProductType;
 }
 
-const HotProductCard = ({ imgLink, leftTitle }: HotProductCardProps) => {
+const HotProductCard = ({
+  imgLink,
+  leftTitle,
+  productType,
+}: HotProductCardProps) => {
+  const navigate = useNavigate();
   return (
-    <StyledHotProductCard>
+    <StyledHotProductCard
+      onClick={() =>
+        navigate(`/${PATH.SHOP}/${productType}`, { state: { to: productType } })
+      }
+    >
       <Grid2 container spacing={0} columnSpacing={2}>
         <Grid2 size={6} className="left-content">
           <Typography variant="h5">{leftTitle}</Typography>

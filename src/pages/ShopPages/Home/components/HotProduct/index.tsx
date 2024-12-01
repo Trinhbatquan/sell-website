@@ -7,6 +7,7 @@ import hotProduct3 from "../../../../../assets/image/hot-product-3.png";
 import hotProduct4 from "../../../../../assets/image/hot-product-4.png";
 import hotProduct5 from "../../../../../assets/image/hot-product-5.png";
 import styled from "@emotion/styled";
+import { ProductType } from "../../../../../constants";
 
 const HotProduct = () => {
   const HotProductContainer = styled.div`
@@ -53,11 +54,31 @@ const HotProduct = () => {
               indicators={false}
               duration={4000}
             >
-              <HotProductCard leftTitle="GHẾ" imgLink={hotProduct1} />
-              <HotProductCard leftTitle="ĐÈN" imgLink={hotProduct2} />
-              <HotProductCard leftTitle="TỦ" imgLink={hotProduct3} />
-              <HotProductCard leftTitle="GIƯỜNG" imgLink={hotProduct4} />
-              <HotProductCard leftTitle="BÀN" imgLink={hotProduct5} />
+              <HotProductCard
+                leftTitle="GHẾ"
+                imgLink={hotProduct1}
+                productType={ProductType.GHE}
+              />
+              <HotProductCard
+                leftTitle="ĐÈN"
+                imgLink={hotProduct2}
+                productType={ProductType.DEN}
+              />
+              <HotProductCard
+                leftTitle="TỦ"
+                imgLink={hotProduct3}
+                productType={ProductType.TU}
+              />
+              <HotProductCard
+                leftTitle="GIƯỜNG"
+                imgLink={hotProduct4}
+                productType={ProductType.GIUONG}
+              />
+              <HotProductCard
+                leftTitle="BÀN"
+                imgLink={hotProduct5}
+                productType={ProductType.BAN}
+              />
             </Slide>
           </Grid2>
         </Grid2>

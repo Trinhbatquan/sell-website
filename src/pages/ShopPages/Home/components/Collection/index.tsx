@@ -4,7 +4,11 @@ import {
   ProductCard,
   ReviewCard,
 } from "../../../../../components";
-import { getProductList, reviewList } from "../../../../../constants";
+import {
+  getProductList,
+  ProductType,
+  reviewList,
+} from "../../../../../constants";
 import banner1 from "../../../../../assets/banners/banner1.png";
 import banner2 from "../../../../../assets/banners/banner2.png";
 import banner3 from "../../../../../assets/banners/banner3.png";
@@ -21,22 +25,34 @@ const Collection = () => {
           <Typography variant="h3">BỘ SƯU TẬP</Typography>
           <Grid2 container rowSpacing={1} columnSpacing={4}>
             <Grid2 size={3}>
-              <CustomPrimaryBtn title="Hiện đại" />
+              <CustomPrimaryBtn
+                title="Hiện đại"
+                productType={ProductType.HIEN_DAI}
+              />
             </Grid2>
             <Grid2 size={3}>
-              <CustomPrimaryBtn title="Cổ điển" />
+              <CustomPrimaryBtn
+                title="Cổ điển"
+                productType={ProductType.CO_DIEN}
+              />
             </Grid2>
             <Grid2 size={3}>
-              <CustomPrimaryBtn title="Đơn giản" />
+              <CustomPrimaryBtn
+                title="Đơn giản"
+                productType={ProductType.DON_GIAN}
+              />
             </Grid2>
             <Grid2 size={3}>
-              <CustomPrimaryBtn title="Song song" />
+              <CustomPrimaryBtn
+                title="Sang trọng"
+                productType={ProductType.SANG_TRONG}
+              />
             </Grid2>
           </Grid2>
           <Grid2 container rowSpacing={1} columnSpacing={4}>
-            {getProductList([1, 2, 3, 4]).map(({ id, ...rest }) => (
-              <Grid2 size={3} key={id}>
-                <ProductCard {...rest} onClick={() => {}} />
+            {getProductList([ProductType.COLLECTION]).map((item) => (
+              <Grid2 size={3} key={item.id}>
+                <ProductCard {...item} />
               </Grid2>
             ))}
           </Grid2>
@@ -76,9 +92,9 @@ const Collection = () => {
             </Stack>
           </Box>
           <Grid2 container rowSpacing={1} columnSpacing={4}>
-            {getProductList([5, 6]).map(({ id, ...rest }) => (
-              <Grid2 size={3} key={id}>
-                <ProductCard {...rest} onClick={() => {}} />
+            {getProductList([ProductType.HOME1]).map((item) => (
+              <Grid2 size={3} key={item.id}>
+                <ProductCard {...item} />
               </Grid2>
             ))}
             <Grid2 size={6}>
@@ -106,9 +122,9 @@ const Collection = () => {
                 }}
               />
             </Grid2>
-            {getProductList([4, 7]).map(({ id, ...rest }) => (
-              <Grid2 size={3} key={id}>
-                <ProductCard {...rest} onClick={() => {}} />
+            {getProductList([ProductType.HOME2]).map((item) => (
+              <Grid2 size={3} key={item.id}>
+                <ProductCard {...item} />
               </Grid2>
             ))}
           </Grid2>

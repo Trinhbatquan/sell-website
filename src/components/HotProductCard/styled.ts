@@ -4,6 +4,7 @@ export const StyledHotProductCard = styled.div`
   width: 98%;
   height: 180px;
   margin-left: 0.25rem;
+  cursor: pointer;
 
   > * {
     height: 100%;

@@ -1,5 +1,16 @@
 import { IRouter } from "../interfaces";
-import AdminLayout from "./AdminPages/AdminLayout";
+import AddProduct from "./AdminPages/AddProduct";
+import AdminAccount from "./AdminPages/AdminAccount";
+import AdminHome from "./AdminPages/AdminHome";
+import Analytics from "./AdminPages/Analytic";
+import CreateVoucher from "./AdminPages/CreateVoucher";
+import Item from "./AdminPages/Item";
+import ListProduct from "./AdminPages/ListProduct";
+import ManagerFeedback from "./AdminPages/ManagerFeedback";
+import ManagerItem from "./AdminPages/ManagerItem";
+import ManagerVoucher from "./AdminPages/ManagerVoucher";
+import Report from "./AdminPages/Report";
+import Support from "./AdminPages/Support";
 import Account from "./ShopPages/Account";
 import Cart from "./ShopPages/Cart";
 import Checkout from "./ShopPages/Checkout";
@@ -35,6 +46,20 @@ export const breadcrumbNameMap: { [key: string]: string } = {
     "Hướng dẫn tự decor phòng ngủ đẹp và chuẩn phong thủy 2024",
 };
 
+export const breadcrumbNameMapAdmin: { [key: string]: string } = {
+  "/admin": "Trang chủ",
+  "/admin/list_product": "Danh sách sản phẩm",
+  "/admin/add_product": "Thêm sản phẩm",
+  "/admin/item": "Đơn đặt hàng",
+  "/admin/manager_item": "Quản lý đơn hàng",
+  "/admin/manager_feedback": "Quản lý đánh giá",
+  "/admin/manager_voucher": "Quản lý khuyến mãi",
+  "/admin/create_voucher": "Tạo khuyến mãi",
+  "/admin/report": "Báo cáo",
+  "/admin/support": "Hỗ trợ",
+  "/admin/account": "Tài khoản",
+};
+
 export const PATH = {
   // shop role
   SHOP: "shop",
@@ -61,7 +86,18 @@ export const PATH = {
 
   //admin role
   ADMIN: "admin",
+  ADMIN_HOME: "",
+  LIST_PRODUCT: "list_product",
+  ADD_PRODUCT: "add_product",
+  ITEM: "item",
+  MANAGER_ITEM: "manager_item",
+  MANAGER_FEEDBACK: "manager_feedback",
+  MANAGER_VOUCHER: "manager_voucher",
+  CREATE_VOUCHER: "create_voucher",
   ANALYTIC: "analytic",
+  REPORT: "report",
+  SUPPORT: "support",
+  ADMIN_ACCOUNT: "account",
 };
 
 export const shopRouterList: Array<IRouter> = [
@@ -169,8 +205,63 @@ export const shopRouterList: Array<IRouter> = [
 
 export const adminRouterList: Array<IRouter> = [
   {
+    name: "Home",
+    path: PATH.ADMIN_HOME,
+    element: <AdminHome />,
+  },
+  {
+    name: "List product",
+    path: PATH.LIST_PRODUCT,
+    element: <ListProduct />,
+  },
+  {
+    name: "Create product",
+    path: PATH.ADD_PRODUCT,
+    element: <AddProduct />,
+  },
+  {
+    name: "Item",
+    path: PATH.ITEM,
+    element: <Item />,
+  },
+  {
+    name: "Manager item",
+    path: PATH.MANAGER_ITEM,
+    element: <ManagerItem />,
+  },
+  {
+    name: "Manager feedback",
+    path: PATH.MANAGER_FEEDBACK,
+    element: <ManagerFeedback />,
+  },
+  {
+    name: "Manager voucher",
+    path: PATH.MANAGER_VOUCHER,
+    element: <ManagerVoucher />,
+  },
+  {
+    name: "Create voucher",
+    path: PATH.CREATE_VOUCHER,
+    element: <CreateVoucher />,
+  },
+  {
     name: "Analytic",
     path: PATH.ANALYTIC,
-    element: <AdminLayout />,
+    element: <Analytics />,
+  },
+  {
+    name: "Report",
+    path: PATH.REPORT,
+    element: <Report />,
+  },
+  {
+    name: "Support",
+    path: PATH.SUPPORT,
+    element: <Support />,
+  },
+  {
+    name: "Admin account",
+    path: PATH.ADMIN_ACCOUNT,
+    element: <AdminAccount />,
   },
 ];

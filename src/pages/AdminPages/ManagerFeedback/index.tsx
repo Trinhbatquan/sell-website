@@ -40,7 +40,7 @@ import chart from "../../../assets/image/chart.png";
 import tick from "../../../assets/image/tick.png";
 import { productList } from "../../../constants";
 
-const Analytic: React.FC = () => {
+const ManagerFeedback: React.FC = () => {
   const productData = [
     {
       id: 1,
@@ -538,4 +538,4 @@ const Analytic: React.FC = () => {
   );
 };
 
-export default Analytic;
+export default ManagerFeedback;

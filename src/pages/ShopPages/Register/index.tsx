@@ -9,6 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../router.config";
 
 const Register = () => {
   const [registerState, setRegisterState] = useState<{
@@ -25,6 +27,7 @@ const Register = () => {
     password: "",
   });
   const [isConfirm, setConfirm] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleChange = (key: string, value: string) =>
     setRegisterState((prev) => ({
@@ -129,6 +132,7 @@ const Register = () => {
               width: 160,
               textTransform: "initial",
             }}
+            onClick={() => navigate(`/${PATH.SHOP}/${PATH.LOGIN}`)}
           >
             Đăng ký
           </Button>

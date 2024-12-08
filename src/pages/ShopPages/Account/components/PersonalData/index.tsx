@@ -26,14 +26,14 @@ const PersonalData = () => {
       justifyContent="space-between"
       sx={{ height: "100%" }}
     >
-      <Stack gap={1} alignItems="center" sx={{ width: "100%" }}>
+      <Stack alignItems="center" sx={{ width: "100%" }}>
         <Typography variant="h3" sx={{ paddingBlockEnd: "1rem" }}>
           HỒ SƠ CỦA TÔI
         </Typography>
         <Grid2
           container
           rowSpacing={1}
-          columnSpacing={3}
+          columnSpacing={1}
           sx={{ width: "100%" }}
         >
           <Grid2
@@ -73,7 +73,7 @@ const PersonalData = () => {
         <Grid2
           container
           rowSpacing={1}
-          columnSpacing={3}
+          columnSpacing={1}
           sx={{ width: "100%" }}
         >
           <Grid2
@@ -113,7 +113,7 @@ const PersonalData = () => {
         <Grid2
           container
           rowSpacing={1}
-          columnSpacing={3}
+          columnSpacing={1}
           sx={{ width: "100%" }}
         >
           <Grid2

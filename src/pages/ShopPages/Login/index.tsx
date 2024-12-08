@@ -80,7 +80,7 @@ const Login = () => {
         />
         <Stack
           width="100%"
-          sx={{ mt: 0.5 }}
+          // sx={{ mt: 0.5 }}
           display="flex"
           alignItems="center"
           justifyContent="space-between"
@@ -106,7 +106,7 @@ const Login = () => {
             variant="contained"
             size="medium"
             sx={{
-              marginTop: 3,
+              marginTop: 2,
               backgroundColor: "#fdcc7f",
               width: 160,
               textTransform: "initial",
@@ -115,7 +115,7 @@ const Login = () => {
             Đăng nhập
           </Button>
         </Stack>
-        <Stack display="flex" alignItems="center" sx={{ width: "100%", mt: 3 }}>
+        <Stack display="flex" alignItems="center" sx={{ width: "100%", mt: 2 }}>
           <Typography
             variant="body2"
             sx={{ cursor: "pointer" }}
@@ -140,7 +140,7 @@ const Login = () => {
                 variant="contained"
                 size="medium"
                 sx={{
-                  marginTop: 2,
+                  marginTop: 1,
                   backgroundColor: "#fdcc7f",
                   width: 160,
                   textTransform: "initial",

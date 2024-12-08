@@ -81,7 +81,7 @@ const Product = () => {
           />
 
           {/* Content Layout */}
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             {/* Sidebar */}
             <Grid item xs={3}>
               <Box sx={{ bgcolor: "#FFF8F0", p: 2, borderRadius: 2 }}>
@@ -259,7 +259,7 @@ const Product = () => {
             <Grid item xs={9}>
               {products.length > 0 ? (
                 <>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={1.5}>
                     {products.map((product, index) => (
                       <Grid item xs={4} key={index}>
                         <ProductCard {...product} />
@@ -294,6 +294,7 @@ const Product = () => {
                   height="fit-content"
                   textAlign="center"
                   bgcolor="#f9f9f9"
+                  mt={6}
                   p={4}
                 >
                   <ShoppingCartIcon

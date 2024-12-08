@@ -1,5 +1,4 @@
 import { useState } from "react";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { StyledScrollUp } from "./styled";
 
 const ScrollToTop = () => {
@@ -18,10 +17,10 @@ const ScrollToTop = () => {
 
   return (
     <StyledScrollUp
-      className={isScrollUpActive ? "active" : ""}
+      className={`scroll-top ${isScrollUpActive ? "active" : ""}`}
       onClick={handleScrollToTop}
     >
-      <KeyboardArrowUpIcon />
+      <div className="arrow up"></div>
     </StyledScrollUp>
   );
 };

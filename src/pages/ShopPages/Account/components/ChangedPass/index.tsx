@@ -36,7 +36,7 @@ const ChangedPass = () => {
       justifyContent="space-between"
       sx={{ height: "100%" }}
     >
-      <Stack gap={1} alignItems="center" sx={{ width: "70%" }}>
+      <Stack alignItems="center" sx={{ width: "70%" }}>
         <Typography variant="h3" sx={{ paddingBlockEnd: "1rem" }}>
           ĐỔI MẬT KHẨU
         </Typography>
@@ -51,7 +51,6 @@ const ChangedPass = () => {
         />
         <FormControl
           sx={{
-            m: 1,
             width: "100%",
             margin: "16px 0 8px",
             position: "relative",
@@ -84,7 +83,7 @@ const ChangedPass = () => {
           </Button>
         </FormControl>
         <FormControl
-          sx={{ m: 1, width: "100%", margin: "16px 0 8px" }}
+          sx={{ width: "100%", margin: "16px 0 8px" }}
           variant="outlined"
         >
           <InputLabel htmlFor="component-helper">Nhập mật khẩu mới</InputLabel>

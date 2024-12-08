@@ -24,6 +24,7 @@ const Register = () => {
     confirmPassword: "",
     password: "",
   });
+  const [isConfirm, setConfirm] = useState<boolean>(false);
 
   const handleChange = (key: string, value: string) =>
     setRegisterState((prev) => ({
@@ -55,7 +56,7 @@ const Register = () => {
         }}
       >
         <Stack display="flex" alignItems="center" sx={{ width: "100%" }}>
-          <Typography variant="h3" fontWeight="bold" align="center" mb={3}>
+          <Typography variant="h3" fontWeight="bold" align="center" mb={2}>
             Đăng ký
           </Typography>
         </Stack>
@@ -105,20 +106,25 @@ const Register = () => {
           onChange={(e) => handleChange("confirmPassword", e.target.value)}
         />
         <FormControlLabel
-          control={<Checkbox />}
+          control={
+            <Checkbox
+              checked={isConfirm}
+              onChange={(e) => setConfirm(e.target.checked)}
+            />
+          }
           label={
             <Typography variant="body2">
               Đồng ý với chính sách và điều khoản
             </Typography>
           }
-          sx={{ mt: 0.5 }}
         />
         <Stack display="flex" alignItems="center" sx={{ width: "100%" }}>
           <Button
             variant="contained"
             size="medium"
+            disabled={!isConfirm}
             sx={{
-              marginTop: 3,
+              marginTop: 2,
               backgroundColor: "#fdcc7f",
               width: 160,
               textTransform: "initial",

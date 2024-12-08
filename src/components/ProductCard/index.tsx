@@ -95,9 +95,9 @@ const ProductCard = ({
         sx={{
           backgroundColor: "#fff",
           padding: "1rem",
-          height: "350px",
+          height: "326px",
           borderRadius: "0.5rem",
-          marginInline: isSlide ? "0.5rem" : 0,
+          marginInline: isSlide ? "0.45rem" : 0,
           cursor: "pointer",
         }}
         onClick={handleDetail}
@@ -108,11 +108,11 @@ const ProductCard = ({
             alt="img"
             style={{ width: "100%", height: "50%", objectFit: "contain" }}
           />
-          {title.length > 25 ? (
+          {title.length > 22 ? (
             <Tooltip title={title}>
               <Typography variant="body2">{`${title.slice(
                 0,
-                25
+                22
               )}...`}</Typography>
             </Tooltip>
           ) : (

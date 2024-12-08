@@ -44,7 +44,7 @@ const GetPassword = () => {
     >
       <Box
         sx={{
-          width: 600,
+          width: 500,
           display: "flex",
           alignItems: "start",
           flexDirection: "column",
@@ -52,12 +52,11 @@ const GetPassword = () => {
         }}
       >
         <Stack display="flex" alignItems="center" sx={{ width: "100%" }}>
-          <Typography variant="h3" fontWeight="bold" align="center" mb={3}>
+          <Typography variant="h3" fontWeight="bold" align="center" mb={2}>
             ĐỔI MẬT KHẨU
           </Typography>
           <FormControl
             sx={{
-              m: 1,
               width: "100%",
               margin: "16px 0 8px",
               position: "relative",
@@ -90,7 +89,7 @@ const GetPassword = () => {
             </Button>
           </FormControl>
           <FormControl
-            sx={{ m: 1, width: "100%", margin: "16px 0 8px" }}
+            sx={{ width: "100%", margin: "16px 0 8px" }}
             variant="outlined"
           >
             <InputLabel htmlFor="outlined-adornment-password1">
@@ -123,7 +122,7 @@ const GetPassword = () => {
             </FormHelperText>
           </FormControl>
           <FormControl
-            sx={{ m: 1, width: "100%", margin: "16px 0 8px" }}
+            sx={{ width: "100%", margin: "16px 0 8px" }}
             variant="outlined"
           >
             <InputLabel htmlFor="outlined-adornment-password2">
@@ -158,7 +157,7 @@ const GetPassword = () => {
             variant="contained"
             size="medium"
             sx={{
-              marginTop: 3,
+              marginTop: 2,
               backgroundColor: "#fdcc7f",
               width: 160,
               textTransform: "initial",

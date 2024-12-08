@@ -2,16 +2,18 @@ import styled from "@emotion/styled";
 import { Theme } from "@mui/material";
 
 export const StyledHeader = styled.div`
-  height: 90px;
+  height: 86px;
   button:focus,
   button:focus-visible {
     outline: none;
   }
 
   .logo {
-    width: 76px;
+    width: 84px;
     height: auto;
     object-fit: contain;
+    position: relative;
+    top: 6px;
   }
 
   .link {
@@ -31,7 +33,7 @@ export const StyledHeader = styled.div`
     padding: 0.25rem 0.5rem;
     height: 28px;
     background-color: #977c7c;
-    width: 225px;
+    width: 190px;
     display: flex;
     align-items: center;
     justify-content: start;

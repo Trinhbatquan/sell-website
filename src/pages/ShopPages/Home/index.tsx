@@ -3,6 +3,7 @@ import Collection from "./components/Collection";
 import HotProduct from "./components/HotProduct";
 import Slider from "./components/Slider";
 import { Box, CircularProgress } from "@mui/material";
+import chat from "../../../assets/image/chat.png";
 
 const Home = () => {
   const [isShow, setShow] = useState(false);
@@ -39,6 +40,20 @@ const Home = () => {
           <CircularProgress />
         </Box>
       )}
+      <img
+        alt="chat"
+        src={chat}
+        style={{
+          position: "fixed",
+          bottom: "40px",
+          right: "16px",
+          cursor: "pointer",
+          width: "100px",
+          height: "auto",
+          objectFit: "contain",
+          zIndex: "99",
+        }}
+      />
     </>
   );
 };

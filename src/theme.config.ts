@@ -11,19 +11,19 @@ export const theme = createTheme({
       fontSize: 28,
     },
     h3: {
-      fontSize: 24,
+      fontSize: 21,
       fontWeight: "bold",
     },
     h4: {
-      fontSize: 20,
+      fontSize: 19,
       fontWeight: "bold",
     },
     h5: {
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: "bold",
     },
     h6: {
-      fontSize: 16,
+      fontSize: 15,
       fontWeight: "lighter",
     },
     subtitle1: {

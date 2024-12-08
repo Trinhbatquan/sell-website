@@ -124,7 +124,7 @@ export const productList: Array<IProduct> = [
     price: "8.000.000 đ",
     maxQuantity: 7,
     type: [ProductType.HOME2, ProductType.SANG_TRONG, ProductType.GHE],
-    color: "Trắng",
+    color: "Tím",
   },
   {
     id: 8,
@@ -210,7 +210,7 @@ export const productList: Array<IProduct> = [
     price: "500.000 đ",
     maxQuantity: 7,
     type: [ProductType.DON_GIAN, ProductType.GIUONG],
-    color: "Đen",
+    color: "Trắng",
   },
   {
     id: 17,
@@ -237,7 +237,7 @@ export const productList: Array<IProduct> = [
     price: "12.000.000 đ",
     maxQuantity: 7,
     type: [ProductType.SANG_TRONG, ProductType.GIUONG],
-    color: "Đen",
+    color: "Trắng",
   },
   {
     id: 20,

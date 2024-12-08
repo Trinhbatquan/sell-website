@@ -1,5 +1,6 @@
 import { Box, Button, Divider, Modal, Stack, Typography } from "@mui/material";
 import { useState } from "react";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Address = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -52,83 +53,108 @@ const Address = () => {
           <Typography variant="h3" sx={{ paddingBlockEnd: "1rem" }}>
             ĐỊA CHỈ CỦA BẠN
           </Typography>
-          <Stack gap={7} alignItems="center" sx={{ width: "100%" }}>
-            {addressList.map((item) => (
-              <Stack
-                gap={2}
-                alignItems="center"
-                sx={{ width: "100%", position: "relative" }}
-                key="index"
-              >
-                {item.isDefault && (
-                  <Button
-                    sx={{
-                      position: "absolute",
-                      top: "-31px",
-                      left: 0,
-                      textTransform: "inherit",
-                      backgroundColor: "#344943",
-                      color: "#fff",
-                    }}
-                    variant="contained"
-                    size="small"
-                  >
-                    Đặt làm mặc định
-                  </Button>
-                )}
-                <Divider sx={{ height: "1px", width: "100%" }} />
-
+          {addressList.length === 0 ? (
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              height="fit-content"
+              textAlign="center"
+              bgcolor="#f9f9f9"
+              p={4}
+            >
+              <ShoppingCartIcon
+                sx={{ fontSize: 60, color: "#bdbdbd", mb: 2 }}
+              />
+              <Typography variant="h5" gutterBottom>
+                Không có địa chỉ
+              </Typography>
+              <Typography variant="body1" color="textSecondary" sx={{ mb: 4 }}>
+                Thêm địa chỉ của bạn để quá trình đặt hàng được diễn ra
+              </Typography>
+            </Box>
+          ) : (
+            <Stack gap={7} alignItems="center" sx={{ width: "100%" }}>
+              {addressList.map((item) => (
                 <Stack
-                  direction="row"
-                  gap={1}
-                  alignItems="start"
-                  justifyContent="space-between"
-                  sx={{ height: "100%", width: "100%" }}
+                  gap={2}
+                  alignItems="center"
+                  sx={{ width: "100%", position: "relative" }}
+                  key="index"
                 >
-                  <Stack gap={0.5} alignItems="start" sx={{ width: "100%" }}>
-                    <Typography variant="subtitle1">{item.name}</Typography>
-                    <Typography variant="subtitle1">{item.phone}</Typography>
-                    <Typography variant="subtitle1">{item.address}</Typography>
-                  </Stack>
+                  {item.isDefault && (
+                    <Button
+                      sx={{
+                        position: "absolute",
+                        top: "-31px",
+                        left: 0,
+                        textTransform: "inherit",
+                        backgroundColor: "#344943",
+                        color: "#fff",
+                      }}
+                      variant="contained"
+                      size="small"
+                    >
+                      Đặt làm mặc định
+                    </Button>
+                  )}
+                  <Divider sx={{ height: "1px", width: "100%" }} />
+
                   <Stack
-                    gap={1}
                     direction="row"
+                    gap={1}
                     alignItems="start"
-                    justifyContent="end"
-                    sx={{ width: "100%" }}
+                    justifyContent="space-between"
+                    sx={{ height: "100%", width: "100%" }}
                   >
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      sx={{
-                        backgroundColor: "#fdcc7f",
-                        width: 100,
-                        textTransform: "initial",
-                      }}
-                      onClick={() => {}}
+                    <Stack gap={0.5} alignItems="start" sx={{ width: "100%" }}>
+                      <Typography variant="subtitle1">{item.name}</Typography>
+                      <Typography variant="subtitle1">{item.phone}</Typography>
+                      <Typography variant="subtitle1">
+                        {item.address}
+                      </Typography>
+                    </Stack>
+                    <Stack
+                      gap={1}
+                      direction="row"
+                      alignItems="start"
+                      justifyContent="end"
+                      sx={{ width: "100%" }}
                     >
-                      Chỉnh sửa
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      sx={{
-                        backgroundColor: "#fdcc7f",
-                        width: 60,
-                        textTransform: "initial",
-                      }}
-                      onClick={() => {
-                        handleToggle();
-                        setSelectedId(item.id);
-                      }}
-                    >
-                      Xoá
-                    </Button>
+                      <Button
+                        variant="contained"
+                        size="medium"
+                        sx={{
+                          backgroundColor: "#fdcc7f",
+                          width: 100,
+                          textTransform: "initial",
+                        }}
+                        onClick={() => {}}
+                      >
+                        Chỉnh sửa
+                      </Button>
+                      <Button
+                        variant="contained"
+                        size="medium"
+                        sx={{
+                          backgroundColor: "#fdcc7f",
+                          width: 60,
+                          textTransform: "initial",
+                        }}
+                        onClick={() => {
+                          handleToggle();
+                          setSelectedId(item.id);
+                        }}
+                      >
+                        Xoá
+                      </Button>
+                    </Stack>
                   </Stack>
                 </Stack>
-              </Stack>
-            ))}
-          </Stack>
+              ))}
+            </Stack>
+          )}
         </Stack>
         <Stack display="flex" alignItems="center" sx={{ width: "100%" }}>
           <Button

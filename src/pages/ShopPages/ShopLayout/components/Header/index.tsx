@@ -5,10 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
@@ -29,18 +26,12 @@ import { productList, ProductType } from "../../../../../constants";
 import { useSelector } from "react-redux";
 import { cardProductSelector } from "../../../../../redux/page.slice";
 import useOnClickOutside from "../../../../../hooks/useOnClickOutside";
+import CustomPopover from "../../../../../components/CustomPopover";
 
 export default function Header() {
   const cart = useSelector(cardProductSelector);
-  const [productEl, setProductEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
-  const productMenuId = "primary-search-account-menu";
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setProductEl(event.currentTarget);
-  };
-  const handleMenuClose = () => setProductEl(null);
   const handleClickMenuItem = (productType: ProductType) => {
-    handleMenuClose();
     navigate(`/${PATH.SHOP}/${productType}`, { state: { to: productType } });
   };
   const [search, setSearch] = useState("");
@@ -50,32 +41,6 @@ export default function Header() {
   const handleCart = () => {
     navigate(`/${PATH.SHOP}/${PATH.CART}`);
   };
-
-  const renderProductMenu = (
-    <Menu
-      anchorEl={productEl}
-      id={productMenuId}
-      keepMounted
-      open={!!productEl}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={() => handleClickMenuItem(ProductType.GIUONG)}>
-        Giường
-      </MenuItem>
-      <MenuItem onClick={() => handleClickMenuItem(ProductType.TU)}>
-        Tủ
-      </MenuItem>
-      <MenuItem onClick={() => handleClickMenuItem(ProductType.GHE)}>
-        Ghế
-      </MenuItem>
-      <MenuItem onClick={() => handleClickMenuItem(ProductType.DEN)}>
-        Đèn
-      </MenuItem>
-      <MenuItem onClick={() => handleClickMenuItem(ProductType.TRANG_TRI)}>
-        Cây trang trí
-      </MenuItem>
-    </Menu>
-  );
 
   const location = useLocation();
   const getLinkClass = (path: string) => {
@@ -106,10 +71,10 @@ export default function Header() {
         <AppBar
           position="fixed"
           sx={{ backgroundColor: "#344943" }}
-          style={{ paddingBlock: "0.75rem" }}
+          style={{ paddingBlock: "0.25rem" }}
         >
           <Container maxWidth="lg">
-            <Toolbar style={{ gap: "2rem" }}>
+            <Toolbar style={{ gap: "1.5rem" }}>
               <NavLink to={PATH.HOME}>
                 <img src={logo} alt="logo" loading="lazy" className="logo" />
               </NavLink>
@@ -119,32 +84,43 @@ export default function Header() {
               <NavLink to={PATH.INTRO} end className={getLinkClass(PATH.INTRO)}>
                 Giới thiệu
               </NavLink>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.15rem",
-                  cursor: "pointer",
+              <CustomPopover
+                onClick={() => {
+                  navigate(`/${PATH.SHOP}/all`, {
+                    state: { to: ProductType.ALL },
+                  });
                 }}
-                aria-controls={productMenuId}
-                onClick={handleProfileMenuOpen}
-              >
-                <Typography
-                  noWrap
-                  variant="h6"
-                  component="div"
-                  sx={{
-                    fontWeight: "lighter",
-                  }}
-                >
-                  Sản phẩm
-                </Typography>
-                {!!productEl ? (
-                  <KeyboardArrowUpIcon />
-                ) : (
-                  <KeyboardArrowDownIcon />
-                )}
-              </Box>
+                content={
+                  <>
+                    <MenuItem
+                      onClick={() => handleClickMenuItem(ProductType.GIUONG)}
+                    >
+                      Giường
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => handleClickMenuItem(ProductType.TU)}
+                    >
+                      Tủ
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => handleClickMenuItem(ProductType.GHE)}
+                    >
+                      Ghế
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => handleClickMenuItem(ProductType.DEN)}
+                    >
+                      Đèn
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => handleClickMenuItem(ProductType.TRANG_TRI)}
+                    >
+                      Cây trang trí
+                    </MenuItem>
+                  </>
+                }
+                productMenuId="testing"
+              />
               <NavLink to={PATH.NEWS} end className={getLinkClass(PATH.NEWS)}>
                 Tin tức
               </NavLink>
@@ -178,7 +154,7 @@ export default function Header() {
                       position: "absolute",
                       top: 40,
                       left: 0,
-                      height: 400,
+                      height: 300,
                       overflowY: "auto",
                       scrollbarWidth: "thin",
                       display: search.length && showSearch ? "block" : "none",
@@ -203,6 +179,7 @@ export default function Header() {
                           alignItems: "center",
                           paddingInline: 1.5,
                           paddingBlock: 0.25,
+                          mt: 1,
                           mb: 2,
                           boxShadow: 1,
                           borderRadius: 2,
@@ -264,7 +241,6 @@ export default function Header() {
             </Toolbar>
           </Container>
         </AppBar>
-        {renderProductMenu}
       </Box>
     </StyledHeader>
   );

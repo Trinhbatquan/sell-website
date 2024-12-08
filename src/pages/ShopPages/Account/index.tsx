@@ -57,7 +57,7 @@ const Account = () => {
 
   return (
     <Container maxWidth="lg" sx={{ paddingBlock: "2rem" }}>
-      <Grid2 container rowSpacing={1} columnSpacing={3}>
+      <Grid2 container rowSpacing={1} columnSpacing={1}>
         <Grid2
           size={4}
           sx={{ paddingInlineEnd: "1rem", borderRight: "1px solid #bbb" }}
@@ -92,7 +92,7 @@ const Account = () => {
               sx={{
                 marginTop: 2,
                 backgroundColor: "#fdcc7f",
-                width: 160,
+                width: 120,
                 textTransform: "initial",
               }}
               onClick={() => navigate(`/${PATH.SHOP}/${PATH.LOGIN}`)}
@@ -102,7 +102,7 @@ const Account = () => {
           </Stack>
         </Grid2>
         <Grid2 size={8}>
-          <Box paddingInlineStart="1rem" sx={{ height: "100%" }}>
+          <Box paddingInlineStart="0.5rem" sx={{ height: "100%" }}>
             {
               sidebarItemsConfig.find((item) => item.key === selectedTab)
                 ?.component

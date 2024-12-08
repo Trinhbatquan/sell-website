@@ -331,7 +331,7 @@ const Detail = () => {
           duration={4000}
         >
           {getProductListById([2, 4, 6, 8, 10, 12]).map((item) => (
-            <ProductCard {...item} key={item.id} />
+            <ProductCard {...item} key={item.id} isSlide />
           ))}
         </Slide>
       </Container>

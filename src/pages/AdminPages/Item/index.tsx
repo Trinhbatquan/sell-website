@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
-  Card,
-  CardContent,
   Typography,
-  Grid,
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
+  Stack,
+  Tabs,
+  Tab,
+  TextField,
+  Checkbox,
+  Avatar,
+  Divider,
+  IconButton,
+  Container,
 } from "@mui/material";
 import {
   Chart as ChartJS,
@@ -34,507 +33,365 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-import color1 from "../../../assets/image/color1.png";
-import color2 from "../../../assets/image/color2.png";
-import chart from "../../../assets/image/chart.png";
-import tick from "../../../assets/image/tick.png";
 import { productList } from "../../../constants";
+import PersonIcon from "@mui/icons-material/Person";
+import MessageIcon from "@mui/icons-material/Message";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { IProduct } from "../../../interfaces";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+interface Order extends IProduct {
+  id: number;
+  customerName: string;
+  quantity: number;
+  totalPrice: string;
+  orderId: string;
+  orderDate: string;
+  status: string;
+}
 
 const Item: React.FC = () => {
-  const productData = [
+  const [activeTab, setActiveTab] = useState(0);
+  const [customerName, setCustomerName] = useState("");
+  const [orderCode, setOrderCode] = useState("");
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setActiveTab(newValue);
+  };
+
+  const orders: Order[] = [
     {
+      ...productList[2],
+      customerName: "Su ra",
+      quantity: 1,
+      totalPrice: "8.000.000 đ",
+      orderId: "466123626681203",
+      orderDate: "27 Mar 2024 14:00",
+      status: "Chờ xác nhận",
       id: 1,
-      name: "Đèn chùm Rosemas pha lê",
-      image: productList[6].imgLink, // Replace with actual image path
-      visitors: 234,
-      orders: 4,
     },
     {
+      ...productList[8],
+      customerName: "Nga",
+      quantity: 1,
+      totalPrice: "2.500.000 đ",
+      orderId: "466123626681203",
+      orderDate: "27 Mar 2024 14:00",
+      status: "Chờ xác nhận",
       id: 2,
-      name: "Ghế Sofa Chicago 3 chỗ",
-      image: productList[7].imgLink, // Replace with actual image path
-      visitors: 390,
-      orders: 2,
     },
     {
+      ...productList[14],
+      customerName: "Dung",
+      quantity: 1,
+      totalPrice: "5.000.000 đ",
+      orderId: "466123626681203",
+      orderDate: "27 Mar 2024 14:00",
+      status: "Chờ xác nhận",
       id: 3,
-      name: "Đèn ngủ để bàn",
-      image: productList[9].imgLink, // Replace with actual image path
-      visitors: 245,
-      orders: 2,
+    },
+    {
+      ...productList[17],
+      customerName: "Thanh",
+      quantity: 2,
+      totalPrice: "10.000.000 đ",
+      orderId: "466123626681203",
+      orderDate: "27 Mar 2024 14:00",
+      status: "Chờ xác nhận",
+      id: 3,
+    },
+    {
+      ...productList[20],
+      customerName: "Hồng",
+      quantity: 4,
+      totalPrice: "8.000.000 đ",
+      orderId: "466123626681203",
+      orderDate: "27 Mar 2024 14:00",
+      status: "Chờ xác nhận",
+      id: 3,
     },
   ];
+
+  const [order, setOrder] = useState<Array<Order[]>>([orders, [], [], [], []]);
+  const selectedOrder = order[activeTab];
+
+  const [selectedOrders, setSelectedOrders] = useState<number[]>([]);
+  const [selectAll, setSelectAll] = useState(false);
+
+  // Handle Select All Checkbox
+  const handleSelectAll = (checked: boolean) => {
+    setSelectAll(checked);
+    setSelectedOrders(checked ? orders.map((order) => order.id) : []);
+  };
+
+  // Handle Individual Checkbox
+  const handleCheckboxChange = (orderId: number, checked: boolean) => {
+    setSelectedOrders((prev) =>
+      checked ? [...prev, orderId] : prev.filter((id) => id !== orderId)
+    );
+  };
+
   return (
-    <Box>
-      {/* Summary Cards */}
-      <Grid container spacing={2} marginBottom={2}>
-        <Grid item xs={4}>
-          <Card
+    <Container maxWidth="lg">
+      <Stack gap={1}>
+        <Box sx={{ p: 2, bgcolor: "#fff8f0", borderRadius: "8px" }}>
+          {/* Tabs for order status */}
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            textColor="primary"
+            indicatorColor="primary"
+            variant="fullWidth"
             sx={{
-              backgroundColor: "#344349",
-              color: "#fff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 3,
+              mb: 3,
+              borderBottom: "1px solid #ddd",
             }}
           >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant="h5">7</Typography>
-              <Typography variant="body2">
-                Đơn hàng chờ xử lý {"  "} {">"}
-                {">"}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={4}>
-          <Card
-            sx={{
-              backgroundColor: "#344349",
-              color: "#fff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 3,
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant="h5">1</Typography>
-              <Typography variant="body2">
-                Đơn hàng trả chờ xử lý {"  "} {">"}
-                {">"}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={4}>
-          <Card
-            sx={{
-              backgroundColor: "#344349",
-              color: "#fff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 3,
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant="h5">10</Typography>
-              <Typography variant="body2">
-                Đơn hàng chờ đánh giá {"  "} {">"}
-                {">"}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+            <Tab sx={{ textTransform: "inherit" }} label="Chờ xác nhận" />
+            <Tab
+              sx={{ textTransform: "inherit" }}
+              label="Chờ đóng gói và bàn giao"
+            />
+            <Tab sx={{ textTransform: "inherit" }} label="Đang vận chuyển" />
+            <Tab sx={{ textTransform: "inherit" }} label="Đã giao" />
+            <Tab sx={{ textTransform: "inherit" }} label="Thất bại" />
+          </Tabs>
 
-      <Card sx={{ boxShadow: 2, padding: 2 }}>
-        <CardContent>
-          <Grid container spacing={2}>
-            {/* Left Section: Chart and Metrics */}
-            <Grid item xs={6}>
-              <Box>
-                <Typography
-                  variant="h6"
-                  fontWeight="bold"
-                  color="primary"
-                  gutterBottom
-                >
-                  Phân tích nâng cao
-                </Typography>
-
-                {/* Revenue Details */}
-                <Box
-                  display="flex"
-                  alignItems="start"
-                  gap={2}
-                  flexDirection="column"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      fontWeight="bold"
-                      gutterBottom
-                      display="flex"
-                      gap={1}
-                      alignItems="center"
-                    >
-                      <img
-                        src={color1}
-                        alt={color1}
-                        style={{ width: "14px", height: "14px" }}
-                      />
-                      Doanh thu hôm nay
-                    </Typography>
-                    <Typography variant="h4" color="error" fontWeight="bold">
-                      12.500.000
-                    </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      fontWeight="bold"
-                      gutterBottom
-                      display="flex"
-                      gap={1}
-                      alignItems="center"
-                    >
-                      <img
-                        src={color2}
-                        alt={color2}
-                        style={{ width: "14px", height: "14px" }}
-                      />
-                      So với hôm qua
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      fontWeight="bold"
-                      sx={{ color: "success.main" }}
-                    >
-                      + 23,44%
-                    </Typography>
-                  </Box>
-                </Box>
-
-                <img
-                  src={chart}
-                  alt="Chart"
-                  style={{ width: "100%", objectFit: "contain" }}
-                />
-              </Box>
-            </Grid>
-
-            {/* Right Section: KPI Cards */}
-            <Grid item xs={6}>
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                gap={2}
-                paddingInline={4}
-                height="100%"
-              >
-                {/* Revenue Card */}
-                <Paper
-                  elevation={3}
-                  sx={{
-                    paddingBlock: 3,
-                    paddingInline: 5,
-                    borderRadius: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    backgroundColor: "#f49af7",
-                    color: "#fff",
-                  }}
-                >
-                  <Typography variant="body2">Doanh thu (đ)</Typography>
-                  <Typography variant="h6" fontWeight="bold">
-                    12,500,000
-                  </Typography>
-                </Paper>
-
-                {/* Orders Card */}
-                <Paper
-                  elevation={3}
-                  sx={{
-                    paddingBlock: 3,
-                    paddingInline: 5,
-                    borderRadius: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    backgroundColor: "#f5f5f5",
-                  }}
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    Đơn hàng
-                  </Typography>
-                  <Typography variant="h6" fontWeight="bold">
-                    7
-                  </Typography>
-                </Paper>
-
-                {/* Visitors Card */}
-                <Paper
-                  elevation={3}
-                  sx={{
-                    paddingBlock: 3,
-                    paddingInline: 5,
-                    borderRadius: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    backgroundColor: "#f5f5f5",
-                  }}
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    Khách truy cập
-                  </Typography>
-                  <Typography variant="h6" fontWeight="bold">
-                    500
-                  </Typography>
-                </Paper>
-              </Box>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-
-      {/* Performance Metrics */}
-      <Grid container spacing={2} mt={2}>
-        <Grid item xs={6}>
+          {/* Input Fields */}
           <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              padding: 3,
-              borderRadius: 2,
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              maxWidth: 600,
-              minHeight: "116px",
-              margin: "0 auto",
-            }}
+            display="flex"
+            gap={2}
+            sx={{ mb: 3 }}
+            flexWrap="wrap"
+            justifyContent="space-between"
           >
-            {/* Quick Delivery Rate Section */}
-            <Box textAlign="center">
-              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                Tỷ số giao hàng nhanh
-              </Typography>
-              <Typography
-                variant="h4"
-                sx={{ fontWeight: 700, color: "red", marginY: 1 }}
-              >
-                85,67%
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Target &gt;= 95%
-              </Typography>
-            </Box>
-
-            {/* Chat Response Rate Section */}
-            <Box textAlign="center">
-              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                Tỷ lệ phản hồi chat
-              </Typography>
-              <Typography
-                variant="h4"
-                sx={{ fontWeight: 700, color: "orange", marginY: 1 }}
-              >
-                0.54%
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Target &lt;= 0.5%
-              </Typography>
-            </Box>
+            <TextField
+              label="Tên khách hàng"
+              variant="outlined"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              fullWidth
+              sx={{ flex: 1, minWidth: "300px" }}
+            />
+            <TextField
+              label="Mã đơn hàng"
+              variant="outlined"
+              value={orderCode}
+              onChange={(e) => setOrderCode(e.target.value)}
+              fullWidth
+              sx={{ flex: 1, minWidth: "300px" }}
+            />
           </Box>
-        </Grid>
-        <Grid item xs={6}>
-          <Box
-            sx={{
-              backgroundColor: "#fff",
-              padding: 2,
-              borderRadius: 2,
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              maxWidth: 500,
-              margin: "0 auto",
-            }}
-          >
-            {/* Title */}
-            <Typography variant="h6" sx={{ fontWeight: 600, marginBottom: 1 }}>
-              Trung tâm phát triển
-            </Typography>
 
-            {/* Subtitle */}
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ marginBottom: 1 }}
+          {/* Buttons */}
+          <Box display="flex" gap={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ textTransform: "inherit" }}
+              size="small"
             >
-              Bạn có 2 thông số cần tối ưu
+              Đóng gói và in
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              sx={{ textTransform: "inherit" }}
+              size="small"
+            >
+              In danh sách chọn
+            </Button>
+          </Box>
+        </Box>
+        <Box sx={{ p: 2, bgcolor: "#fefefe", borderRadius: "8px" }}>
+          {/* Header */}
+          <Box
+            display="flex"
+            alignItems="center"
+            p={1}
+            bgcolor="#344943"
+            color="#fff"
+            borderRadius="8px"
+          >
+            <Checkbox
+              sx={{ color: "#fff" }}
+              checked={selectAll}
+              onChange={(e) => handleSelectAll(e.target.checked)}
+            />
+            <Typography sx={{ flex: 1, fontWeight: "bold" }}>
+              Sản phẩm
             </Typography>
+            <Typography sx={{ width: "12%", textAlign: "center" }}>
+              Số lượng
+            </Typography>
+            <Typography sx={{ width: "14%", textAlign: "center" }}>
+              Tổng tiền
+            </Typography>
+            <Typography sx={{ width: "15%", textAlign: "center" }}>
+              Trạng thái
+            </Typography>
+            <Typography sx={{ width: "15%", textAlign: "center" }}>
+              Thao tác
+            </Typography>
+          </Box>
 
-            {/* Options */}
+          {selectedOrder.length === 0 ? (
             <Box
-              sx={{ display: "flex", alignItems: "center", marginBottom: 1 }}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              height="fit-content"
+              textAlign="center"
+              bgcolor="#f9f9f9"
+              p={4}
             >
-              <Typography
-                variant="body1"
-                sx={{ flex: 1, display: "flex", alignItems: "center", gap: 1 }}
-              >
-                <img
-                  src={tick}
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    objectFit: "contain",
-                  }}
-                />{" "}
-                Đảm bảo tỷ lệ giao hàng đúng hạn
+              <ShoppingCartIcon
+                sx={{ fontSize: 60, color: "#bdbdbd", mb: 2 }}
+              />
+              <Typography variant="h5" gutterBottom>
+                Không có đơn hàng
               </Typography>
-              <Button
-                variant="contained"
-                size="small"
-                sx={{ backgroundColor: "#2F4F4F", textTransform: "inherit" }}
-              >
-                Đến
-              </Button>
-            </Box>
-
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Typography
-                variant="body1"
-                sx={{ flex: 1, display: "flex", alignItems: "center", gap: 1 }}
-              >
-                <img
-                  src={tick}
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    objectFit: "contain",
-                    opacity: 0,
-                  }}
-                />
-                Đảm bảo tỷ lệ phản hồi chat
+              <Typography variant="body1" color="textSecondary" sx={{ mb: 4 }}>
+                Xin lỗi, chúng tôi không tìm thấy đơn hàng nào bây giờ
               </Typography>
-              <Button
-                variant="contained"
-                size="small"
-                sx={{ backgroundColor: "#2F4F4F", textTransform: "inherit" }}
-              >
-                Đến
-              </Button>
             </Box>
-          </Box>
-        </Grid>
-      </Grid>
-
-      {/* Top Products Table */}
-      <Paper elevation={3} sx={{ padding: 2, marginTop: 3, boxShadow: 2 }}>
-        <Typography variant="h6" fontWeight="bold" color="primary" gutterBottom>
-          Top sản phẩm xếp hạng theo ngày
-        </Typography>
-
-        <TableContainer>
-          <Table>
-            {/* Table Header */}
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  align="left"
-                  sx={{ fontWeight: "bold", color: "text.secondary" }}
+          ) : (
+            selectedOrder.map((order) => (
+              <Box
+                key={order.id}
+                display="flex"
+                alignItems="center"
+                flexDirection="column"
+                p={1}
+                mt={2}
+                borderRadius="8px"
+                border="1px solid #ddd"
+                bgcolor="#fff"
+                gap={1}
+              >
+                <Stack
+                  width="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  flexDirection="row"
+                  gap={2}
                 >
-                  STT
-                </TableCell>
-                <TableCell
-                  align="left"
-                  sx={{ fontWeight: "bold", color: "text.secondary" }}
-                >
-                  Sản phẩm
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", color: "text.secondary" }}
-                >
-                  Khách truy cập
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: "bold", color: "text.secondary" }}
-                >
-                  Đơn hàng
-                </TableCell>
-              </TableRow>
-            </TableHead>
-
-            {/* Table Body */}
-            <TableBody>
-              {productData.map((product) => (
-                <TableRow key={product.id}>
-                  {/* STT */}
-                  <TableCell align="left">
-                    <Typography fontWeight="bold">{product.id}</Typography>
-                  </TableCell>
-
-                  {/* Product Details */}
-                  <TableCell>
-                    <Box display="flex" alignItems="center" gap={2}>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        style={{
-                          width: 50,
-                          height: 50,
-                          borderRadius: 8,
-                          objectFit: "cover",
-                          border: "1px solid rgba(0, 0, 0, 0.1)",
-                        }}
-                      />
-                      <Typography>{product.name}</Typography>
-                    </Box>
-                  </TableCell>
-
-                  {/* Visitors */}
-                  <TableCell align="center">
+                  <Stack
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="start"
+                    flexDirection="row"
+                    gap={1}
+                  >
+                    <Checkbox
+                      checked={selectedOrders.includes(order.id)}
+                      onChange={(e) =>
+                        handleCheckboxChange(order.id, e.target.checked)
+                      }
+                    />
+                    <PersonIcon style={{ fontSize: "24px" }} />
                     <Typography fontWeight="bold">
-                      {product.visitors}
+                      {order.customerName}
                     </Typography>
-                  </TableCell>
+                    <IconButton color="inherit">
+                      <MessageIcon style={{ fontSize: "20px" }} />
+                    </IconButton>
+                    <Typography fontWeight="bold">
+                      {"("} 1 sản phẩm {")"}{" "}
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="end"
+                    flexDirection="row"
+                    gap={4}
+                  >
+                    <Typography variant="body2" color="text.secondary">
+                      Số đơn hàng: {order.orderId}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Thời gian đặt hàng: {order.orderDate}
+                    </Typography>
+                    <IconButton color="inherit" size="small">
+                      <ArrowForwardIosIcon style={{ fontSize: "15px" }} />
+                    </IconButton>
+                  </Stack>
+                </Stack>
+                <Divider sx={{ height: "1px", width: "100%" }} />
+                <Stack
+                  width="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  flexDirection="row"
+                  gap={1}
+                  pl={8}
+                >
+                  <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
+                    <Avatar
+                      src={order.imgLink}
+                      alt={order.imgLink}
+                      sx={{ mr: 2, width: 56, height: 56 }}
+                    />
+                    <Box>
+                      <Typography>{order.title}</Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Màu sắc: {order.color}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Typography sx={{ width: "12%", textAlign: "center" }}>
+                    x {order.quantity}
+                  </Typography>
+                  <Typography sx={{ width: "14%", textAlign: "center" }}>
+                    {order.totalPrice} (COD)
+                  </Typography>
+                  <Typography sx={{ width: "15%", textAlign: "center" }}>
+                    {order.status}
+                  </Typography>
+                  <Box width="15%">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      sx={{
+                        width: "100px",
+                        textAlign: "center",
+                        textTransform: "inherit",
+                        bgcolor: "#344943",
+                        color: "#fff",
+                      }}
+                    >
+                      Hủy đơn
+                    </Button>
+                  </Box>
+                </Stack>
+              </Box>
+            ))
+          )}
 
-                  {/* Orders */}
-                  <TableCell align="center">
-                    <Typography fontWeight="bold">{product.orders}</Typography>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </Box>
+          {selectedOrder.length !== 0 && (
+            <Stack display="flex" alignItems="center" sx={{ width: "100%" }}>
+              <Button
+                variant="contained"
+                size="medium"
+                sx={{
+                  marginTop: 3,
+                  backgroundColor: "#fdcc7f",
+                  width: 120,
+                  textTransform: "initial",
+                }}
+                onClick={() => {}}
+              >
+                Xem thêm
+              </Button>
+            </Stack>
+          )}
+        </Box>
+      </Stack>
+    </Container>
   );
 };
 

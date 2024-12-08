@@ -139,7 +139,7 @@ const Cart = () => {
             bgcolor="#f9f9f9"
             p={4}
           >
-            <ShoppingCartIcon sx={{ fontSize: 80, color: "#bdbdbd", mb: 2 }} />
+            <ShoppingCartIcon sx={{ fontSize: 60, color: "#bdbdbd", mb: 2 }} />
             <Typography variant="h5" gutterBottom>
               Không tìm thấy sản phẩm nào
             </Typography>

@@ -27,7 +27,7 @@ const LovedList = () => {
           bgcolor="#f9f9f9"
           p={4}
         >
-          <ShoppingCartIcon sx={{ fontSize: 80, color: "#bdbdbd", mb: 2 }} />
+          <ShoppingCartIcon sx={{ fontSize: 60, color: "#bdbdbd", mb: 2 }} />
           <Typography variant="h5" gutterBottom>
             Không có sản phẩm yêu thích
           </Typography>
@@ -40,7 +40,7 @@ const LovedList = () => {
         <Grid2
           container
           rowSpacing={1}
-          columnSpacing={3}
+          columnSpacing={1.5}
           sx={{ width: "100%" }}
         >
           {productLoveListData.map((item) => (

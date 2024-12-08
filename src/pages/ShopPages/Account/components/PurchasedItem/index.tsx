@@ -19,23 +19,35 @@ import {
   TableRow,
   Tabs,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { useDispatch, useSelector } from "react-redux";
 import { OrderStatus, productList } from "../../../../../constants";
 import ClearIcon from "@mui/icons-material/Clear";
-import icon1 from "../../../../../assets/image/icon1.png";
-import icon2 from "../../../../../assets/image/icon2.png";
+import ImageIcon from "@mui/icons-material/Image";
+import VideoCameraFrontIcon from "@mui/icons-material/VideoCameraFront";
 import {
   handleChangeOrderStatus,
   orderStatusSelector,
 } from "../../../../../redux/page.slice";
 import { ChangeEvent, useState } from "react";
+import { IProduct } from "../../../../../interfaces";
 
 const PurchasedItem = () => {
-  const selectedPro = productList[10];
+  const [productByTab, setProductByTab] = useState<
+    Record<OrderStatus, IProduct[]>
+  >({
+    "confirm-waiting": [productList[11]],
+    "get-item-waiting": [],
+    delivered: [],
+    shipping: [productList[6], productList[18]],
+    feedback: [],
+  });
   const orderStatus = useSelector(orderStatusSelector);
+  const selectedPro = productByTab[orderStatus];
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
   const handleToggle = () => setOpen((prev) => !prev);
@@ -52,6 +64,7 @@ const PurchasedItem = () => {
     p: 4,
   };
   const [isFeedback, setFeedback] = useState<boolean>(false);
+  const [productFeedback, setProductFeedback] = useState<IProduct>();
   const statusConfig = [
     {
       key: OrderStatus.ConfirmWaiting,
@@ -121,6 +134,57 @@ const PurchasedItem = () => {
     setVideos((prevVideos) => prevVideos.filter((_, i) => i !== index));
   };
 
+  const handleFeedback = (item: IProduct) => {
+    setFeedback(true);
+    setProductFeedback(item);
+  };
+
+  const handleSaveFeedback = () => {
+    if (productFeedback) {
+      setFeedback(false);
+      dispatch(handleChangeOrderStatus(OrderStatus.Feedback));
+      setProductByTab((prev) => ({
+        ...prev,
+        [OrderStatus.Feedback]: [
+          ...prev[OrderStatus.Feedback],
+          productFeedback,
+        ],
+      }));
+    }
+  };
+
+  const mappingLabel: Record<OrderStatus, string> = {
+    "confirm-waiting": "đang chờ xác nhận",
+    "get-item-waiting": " đang chờ lấy hàng",
+    delivered: " đang vận chuyển",
+    shipping: "đã giao",
+    feedback: "đã đánh giá",
+  };
+
+  const noProductUI = (
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      height="fit-content"
+      textAlign="center"
+      bgcolor="#f9f9f9"
+      width="100%"
+      px={3}
+      py={2}
+      sx={{ position: "relative", left: "110px" }}
+    >
+      <ShoppingCartIcon sx={{ fontSize: 50, color: "#bdbdbd", mb: 2 }} />
+      <Typography variant="h5" gutterBottom>
+        Không có sản phẩm nào
+      </Typography>
+      <Typography variant="body1" color="textSecondary" sx={{ mb: 4 }}>
+        Bạn chưa có sản phẩm {mappingLabel[orderStatus]} nào
+      </Typography>
+    </Box>
+  );
+
   return (
     <Stack
       gap={1}
@@ -156,81 +220,111 @@ const PurchasedItem = () => {
                     <TableCell sx={{ color: "#FFF" }}></TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <Grid container spacing={2}>
-                        <Grid item>
-                          <Card
-                            sx={{
-                              width: 64,
-                              height: 64,
-                              boxShadow: "none",
-                              borderRadius: 0,
-                            }}
-                          >
-                            <CardMedia
-                              component="img"
-                              image={selectedPro.imgLink}
-                              alt="Ghế Sofa Armchair Royal"
-                            />
-                          </Card>
-                        </Grid>
-                        <Grid item>
-                          <CardContent sx={{ p: 0 }}>
-                            <Typography variant="body1">
-                              {selectedPro.title}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                              {selectedPro.color}
-                            </Typography>
-                          </CardContent>
-                        </Grid>
-                      </Grid>
-                    </TableCell>
-                    <TableCell>
-                      <Typography>1</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography>{selectedPro.price}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      {orderStatus === OrderStatus.Feedback ? (
-                        <Typography
-                          sx={{ display: "flex", alignItems: "center" }}
-                        >
-                          5/5
-                          <StarRoundedIcon sx={{ color: "#fdcc7f" }} />
-                        </Typography>
-                      ) : (
-                        <Button
-                          variant="contained"
-                          sx={{
-                            bgcolor: "#fdcc7f",
-                            color: "#fff",
-                            textTransform: "initial",
-                          }}
-                          onClick={() => {
-                            orderStatus === OrderStatus.Shipping
-                              ? setFeedback(true)
-                              : handleToggle();
-                          }}
-                        >
-                          {orderStatus === OrderStatus.Shipping
-                            ? "Đánh giá"
-                            : "Huỷ đơn"}
-                        </Button>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
+                {selectedPro.length === 0 ? (
+                  noProductUI
+                ) : (
+                  <TableBody sx={{ margin: "0 auto" }}>
+                    {selectedPro.map((item) => {
+                      return (
+                        <TableRow key={item.id}>
+                          <TableCell>
+                            <Grid container spacing={1}>
+                              <Grid item>
+                                <Card
+                                  sx={{
+                                    width: 64,
+                                    height: 64,
+                                    boxShadow: "none",
+                                    borderRadius: 0,
+                                  }}
+                                >
+                                  <CardMedia
+                                    component="img"
+                                    image={item.imgLink}
+                                    alt="Ghế Sofa Armchair Royal"
+                                  />
+                                </Card>
+                              </Grid>
+                              <Grid item>
+                                <CardContent sx={{ p: 0 }}>
+                                  {item.title.length > 24 ? (
+                                    <Tooltip title={item.title}>
+                                      <Typography variant="body2">{`${item.title.slice(
+                                        0,
+                                        24
+                                      )}...`}</Typography>
+                                    </Tooltip>
+                                  ) : (
+                                    <Typography variant="body1">
+                                      {" "}
+                                      {item.title}
+                                    </Typography>
+                                  )}
+                                  <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                  >
+                                    {item.color}
+                                  </Typography>
+                                </CardContent>
+                              </Grid>
+                            </Grid>
+                          </TableCell>
+                          <TableCell>
+                            <Typography>1</Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography>{item.price}</Typography>
+                          </TableCell>
+                          <TableCell>
+                            {orderStatus === OrderStatus.Feedback ? (
+                              <Typography
+                                sx={{ display: "flex", alignItems: "center" }}
+                              >
+                                5/5
+                                <StarRoundedIcon sx={{ color: "#fdcc7f" }} />
+                              </Typography>
+                            ) : (
+                              <Button
+                                variant="contained"
+                                sx={{
+                                  bgcolor: "#fdcc7f",
+                                  color: "#fff",
+                                  textTransform: "initial",
+                                }}
+                                disabled={
+                                  !!productByTab[OrderStatus.Feedback].find(
+                                    (o) => o.id === item.id
+                                  )
+                                }
+                                onClick={() => {
+                                  orderStatus === OrderStatus.Shipping
+                                    ? handleFeedback(item)
+                                    : handleToggle();
+                                }}
+                              >
+                                {orderStatus === OrderStatus.Shipping
+                                  ? !!productByTab[OrderStatus.Feedback].find(
+                                      (o) => o.id === item.id
+                                    )
+                                    ? "Đã đánh giá"
+                                    : "Đánh giá"
+                                  : "Huỷ đơn"}
+                              </Button>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                )}
               </Table>
             </TableContainer>
           </Box>
         )}
 
         {/* Rating */}
-        {isFeedback && (
+        {isFeedback && productFeedback && (
           <>
             <Stack gap={2} alignItems="center" sx={{ width: "100%" }}>
               <Typography variant="h3" sx={{ paddingBlockEnd: "1rem", mt: 4 }}>
@@ -240,7 +334,7 @@ const PurchasedItem = () => {
             {/* Product Info */}
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
               <img
-                src={selectedPro.imgLink} // Replace with the actual image URL
+                src={productFeedback.imgLink} // Replace with the actual image URL
                 alt="Product"
                 style={{
                   width: 100,
@@ -251,10 +345,10 @@ const PurchasedItem = () => {
               />
               <Box>
                 <Typography sx={{ fontWeight: "bold" }}>
-                  {selectedPro.title}
+                  {productFeedback.title}
                 </Typography>
                 <Typography sx={{ color: "gray", fontSize: 14 }}>
-                  {selectedPro.color}
+                  {productFeedback.color}
                 </Typography>
               </Box>
             </Box>
@@ -292,10 +386,8 @@ const PurchasedItem = () => {
                   textTransform: "none",
                 }}
               >
-                <img
-                  src={icon1} // Replace with image upload icon URL
-                  alt="Add Image"
-                  style={{ width: 24, height: 24, objectFit: "contain" }}
+                <ImageIcon
+                  sx={{ width: 24, height: 24, objectFit: "contain" }}
                 />
                 Thêm hình ảnh
                 <input
@@ -320,10 +412,8 @@ const PurchasedItem = () => {
                   textTransform: "none",
                 }}
               >
-                <img
-                  src={icon2} // Replace with video upload icon URL
-                  alt="Add Video"
-                  style={{ width: 24, height: 24, objectFit: "contain" }}
+                <VideoCameraFrontIcon
+                  sx={{ width: 24, height: 24, objectFit: "contain" }}
                 />
                 Thêm video
                 <input
@@ -372,7 +462,7 @@ const PurchasedItem = () => {
                           bgcolor: "rgba(255, 255, 255, 0.7)",
                         }}
                       >
-                        <ClearIcon />
+                        <ClearIcon sx={{ fontSize: "1rem" }} />
                       </IconButton>
                     </Card>
                   ))}
@@ -412,27 +502,44 @@ const PurchasedItem = () => {
                           bgcolor: "rgba(255, 255, 255, 0.7)",
                         }}
                       >
-                        <ClearIcon />
+                        <ClearIcon sx={{ fontSize: "1rem" }} />
                       </IconButton>
                     </Card>
                   ))}
                 </Box>
               </Box>
             )}
-            <Stack gap={2} alignItems="center" sx={{ width: "100%" }}>
+            <Stack
+              gap={2}
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+              sx={{ width: "100%" }}
+            >
+              <Button
+                variant="outlined"
+                size="medium"
+                sx={{
+                  marginTop: 3,
+                  width: 100,
+                  textTransform: "initial",
+                }}
+                onClick={() => {
+                  setFeedback(false);
+                }}
+              >
+                Quay lại
+              </Button>
               <Button
                 variant="contained"
                 size="medium"
                 sx={{
                   marginTop: 3,
                   backgroundColor: "#fdcc7f",
-                  width: 160,
+                  width: 100,
                   textTransform: "initial",
                 }}
-                onClick={() => {
-                  setFeedback(false);
-                  dispatch(handleChangeOrderStatus(OrderStatus.Feedback));
-                }}
+                onClick={handleSaveFeedback}
               >
                 Lưu
               </Button>
@@ -448,7 +555,7 @@ const PurchasedItem = () => {
             sx={{
               marginTop: 3,
               backgroundColor: "#fdcc7f",
-              width: 160,
+              width: 120,
               textTransform: "initial",
             }}
             onClick={() => {}}
@@ -481,7 +588,14 @@ const PurchasedItem = () => {
                   width: 60,
                   textTransform: "initial",
                 }}
-                onClick={() => {}}
+                onClick={() => {
+                  setProductByTab((prev) => ({
+                    ...prev,
+                    [OrderStatus.ConfirmWaiting]: [],
+                  }));
+                  dispatch(handleChangeOrderStatus(OrderStatus.Shipping));
+                  handleToggle();
+                }}
               >
                 Có
               </Button>

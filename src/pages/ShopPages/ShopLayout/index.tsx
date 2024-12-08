@@ -27,7 +27,7 @@ const ShopLayout = () => {
       <Header />
       {pathNameList.length > 1 && (
         <Container maxWidth="lg">
-          <Box paddingBlockStart="2rem">
+          <Box paddingBlockStart="2rem" paddingInlineStart="0.25rem">
             <Breadcrumbs
               aria-label="breadcrumb"
               separator={<NavigateNextIcon fontSize="small" />}

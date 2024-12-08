@@ -13,7 +13,7 @@ export const reviewList = [
   {
     imgLink: review2,
     title:
-      "Nhân viên rất nhiệt tình và chuyên nghiệp, mình rất hài lòng với trải nghiệm tư vấn và mua sắm tại đây",
+      "Nhân viên rất nhiệt tình và chuyên nghiệp, mình rất hài lòng với trải nghiệm mua sắm tại đây",
     name: "Trần Hà Anh",
     location: "Hồ Chí Minh",
   },

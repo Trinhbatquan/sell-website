@@ -20,6 +20,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { LinkRouter } from "../../../components";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import ScrollToTop from "../../ShopPages/ShopLayout/components/ScrollToTop";
 
 const AdminLayout = () => {
   const [openOrders, setOpenOrders] = useState(false);
@@ -38,6 +39,7 @@ const AdminLayout = () => {
       style={{
         display: "flex",
         backgroundColor: "#f9f5f0",
+        minHeight: "100vh",
       }}
     >
       <Box
@@ -52,9 +54,14 @@ const AdminLayout = () => {
           sx={{ cursor: "pointer" }}
           onClick={() => navigate(`/${PATH.ADMIN}`)}
         >
-          <img srcSet={admin} src={admin} alt={admin} loading="lazy" />
+          <img
+            src={admin}
+            alt={admin}
+            loading="lazy"
+            style={{ width: "200px", height: "auto", objectFit: "contain" }}
+          />
         </Box>
-        <List sx={{ marginBlockStart: "-2rem" }}>
+        <List sx={{ marginBlockStart: "-1rem" }}>
           {/* Sản phẩm */}
           <ListItem sx={{ cursor: "pointer" }} onClick={toggleProduct}>
             <ListItemText primary="Sản phẩm" />
@@ -239,6 +246,7 @@ const AdminLayout = () => {
           />
         </IconButton>
       </Box>
+      <ScrollToTop />
     </div>
   );
 };

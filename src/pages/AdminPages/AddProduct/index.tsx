@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Card,
+  Container,
   FormControl,
   Grid,
   IconButton,
@@ -82,11 +83,10 @@ const AddProduct = () => {
   };
 
   return (
-    <Box>
+    <Container maxWidth="lg">
       <Box
         sx={{
           padding: 3,
-          maxWidth: 800,
           margin: "0 auto",
           backgroundColor: "#f9f9f9",
           borderRadius: 2,
@@ -185,7 +185,6 @@ const AddProduct = () => {
         sx={{
           mt: 3,
           padding: 3,
-          maxWidth: 800,
           marginInline: "auto",
           backgroundColor: "#f9f9f9",
           borderRadius: 2,
@@ -224,7 +223,6 @@ const AddProduct = () => {
         sx={{
           mt: 3,
           padding: 3,
-          maxWidth: 800,
           marginInline: "auto",
           backgroundColor: "#f9f9f9",
           borderRadius: 2,
@@ -387,7 +385,6 @@ const AddProduct = () => {
         sx={{
           mt: 3,
           padding: 3,
-          maxWidth: 800,
           marginInline: "auto",
           backgroundColor: "#f9f9f9",
           borderRadius: 2,
@@ -420,7 +417,6 @@ const AddProduct = () => {
         sx={{
           mt: 3,
           padding: 3,
-          maxWidth: 800,
           marginInline: "auto",
           backgroundColor: "#f9f9f9",
           borderRadius: 2,
@@ -475,7 +471,7 @@ const AddProduct = () => {
         </Box>
       </Box>
       <Stack
-        sx={{ my: 3, maxWidth: 800, marginInline: "auto" }}
+        sx={{ my: 3, marginInline: "auto" }}
         direction="row"
         gap={2}
         justifyContent="end"
@@ -503,7 +499,7 @@ const AddProduct = () => {
           Gửi
         </Button>
       </Stack>
-    </Box>
+    </Container>
   );
 };
 

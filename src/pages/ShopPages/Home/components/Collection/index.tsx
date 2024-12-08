@@ -23,7 +23,7 @@ const Collection = () => {
       <Container maxWidth="lg">
         <Stack gap={4} alignItems="center">
           <Typography variant="h3">BỘ SƯU TẬP</Typography>
-          <Grid2 container rowSpacing={1} columnSpacing={4}>
+          <Grid2 container rowSpacing={2} columnSpacing={2}>
             <Grid2 size={3}>
               <CustomPrimaryBtn
                 title="Hiện đại"
@@ -49,7 +49,7 @@ const Collection = () => {
               />
             </Grid2>
           </Grid2>
-          <Grid2 container rowSpacing={1} columnSpacing={4}>
+          <Grid2 container rowSpacing={2} columnSpacing={2}>
             {getProductList([ProductType.COLLECTION]).map((item) => (
               <Grid2 size={3} key={item.id}>
                 <ProductCard {...item} />
@@ -91,7 +91,7 @@ const Collection = () => {
               </Typography>
             </Stack>
           </Box>
-          <Grid2 container rowSpacing={1} columnSpacing={4}>
+          <Grid2 container rowSpacing={2} columnSpacing={2}>
             {getProductList([ProductType.HOME1]).map((item) => (
               <Grid2 size={3} key={item.id}>
                 <ProductCard {...item} />
@@ -103,21 +103,21 @@ const Collection = () => {
                 src={banner2}
                 style={{
                   width: "100%",
-                  height: "382px",
+                  height: "356px",
                   objectFit: "cover",
                   borderRadius: "1rem",
                 }}
               />
             </Grid2>
           </Grid2>
-          <Grid2 container rowSpacing={1} columnSpacing={4}>
+          <Grid2 container rowSpacing={2} columnSpacing={2}>
             <Grid2 size={6}>
               <img
                 alt="banner3"
                 src={banner3}
                 style={{
                   width: "100%",
-                  height: "382px",
+                  height: "356px",
                   objectFit: "cover",
                 }}
               />
@@ -129,7 +129,7 @@ const Collection = () => {
             ))}
           </Grid2>
           <Typography variant="h3">ĐÁNH GIÁ TỪ KHÁCH HÀNG</Typography>
-          <Grid2 container rowSpacing={1} columnSpacing={3}>
+          <Grid2 container rowSpacing={2} columnSpacing={2}>
             {reviewList.map((item) => (
               <Grid2 size={4} key={item.name}>
                 <ReviewCard {...item} />

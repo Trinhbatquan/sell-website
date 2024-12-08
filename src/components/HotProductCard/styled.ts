@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const StyledHotProductCard = styled.div`
-  width: 98%;
+  width: 99%;
   height: 180px;
   margin-left: 0.25rem;
   cursor: pointer;

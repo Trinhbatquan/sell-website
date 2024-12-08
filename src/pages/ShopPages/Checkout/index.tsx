@@ -10,6 +10,7 @@ import {
   IconButton,
   Container,
   Avatar,
+  Stack,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -24,7 +25,7 @@ import { PATH } from "../../router.config";
 
 const Checkout = () => {
   const cartProduct = useSelector(cardProductSelector);
-  const [payment, setPayment] = useState<"COD" | "Paypal" | "">("");
+  const [payment, setPayment] = useState<"COD" | "Paypal" | "">("COD");
   const [isConfirm, setConfirm] = useState<boolean>(false);
   const selectedProduct = cartProduct.filter((item) => item.isSelected);
   const dispatch = useDispatch();
@@ -223,36 +224,43 @@ const Checkout = () => {
           </Box>
 
           {/* Agreement and Submit Button */}
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isConfirm}
-                onChange={(e) => {
-                  setConfirm(e.target.checked);
-                }}
-              />
-            }
-            label="Tôi đồng ý với chính sách và điều khoản."
-            sx={{ mt: 2 }}
-          />
-          <Button
-            variant="contained"
-            fullWidth
-            disabled={!isConfirm || !payment}
-            sx={{
-              bgcolor: "#FFB84C",
-              "&:hover": { bgcolor: "#FFA733" },
-              textTransform: "none",
-              fontWeight: "bold",
-              mt: 3,
-            }}
-            onClick={() => {
-              dispatch(handleChangeCardProduct([]));
-              setDone(true);
-            }}
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            gap={1}
           >
-            Thanh toán
-          </Button>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isConfirm}
+                  onChange={(e) => {
+                    setConfirm(e.target.checked);
+                  }}
+                />
+              }
+              label="Tôi đồng ý với chính sách và điều khoản."
+              sx={{ mt: 2 }}
+            />
+            <Button
+              variant="contained"
+              disabled={!isConfirm || !payment}
+              sx={{
+                bgcolor: "#FFB84C",
+                "&:hover": { bgcolor: "#FFA733" },
+                textTransform: "none",
+                fontWeight: "bold",
+                mt: 3,
+                width: "160px",
+              }}
+              onClick={() => {
+                dispatch(handleChangeCardProduct([]));
+                setDone(true);
+              }}
+            >
+              Thanh toán
+            </Button>
+          </Stack>
         </Box>
       ) : (
         <Box

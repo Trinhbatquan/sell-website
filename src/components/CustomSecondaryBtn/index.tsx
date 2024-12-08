@@ -13,29 +13,35 @@ interface CustomSecondaryBtnProps {
 const CustomSecondaryBtn = ({
   onClick,
   title = "Thêm vào giỏ",
-  type = "primary",
   isHaveProductCart,
 }: CustomSecondaryBtnProps) => {
   const titleConvert = isHaveProductCart ? "Đã có trong giỏ" : title;
   const StyledCustomSecondaryBtn = styled.div<{
-    type: "primary" | "secondary";
+    isHaveProductCart: boolean;
   }>`
     .custom-secondary-btn {
       width: 100%;
       border-radius: 1.5rem;
-      min-width: 200px;
-      background-color: ${({ type }) =>
-        type === "primary" ? "#fdcc7f" : "#fff"};
-      color: ${({ type }) => (type === "primary" ? "#fff" : "#000")};
+      background-color: ${({ isHaveProductCart }) =>
+        isHaveProductCart ? "#ddd" : "#fdcc7f"};
+      cursor: ${({ isHaveProductCart }) =>
+        isHaveProductCart ? "text" : "pointer"};
+      color: #fff;
+      transition: all 0.3s ease-in-out;
+      border: 1px solid #ccc;
+      &:hover {
+        background-color: #fff;
+        color: #000;
+      }
     }
   `;
 
   return (
-    <StyledCustomSecondaryBtn type={type}>
+    <StyledCustomSecondaryBtn isHaveProductCart={isHaveProductCart}>
       <Button
         className="custom-secondary-btn"
-        size="large"
-        variant={type === "primary" ? "contained" : "outlined"}
+        size="medium"
+        variant="outlined"
         onClick={onClick}
         disabled={isHaveProductCart}
       >

@@ -13,10 +13,10 @@ const HotProduct = () => {
   const HotProductContainer = styled.div`
     .react-slideshow-container {
       .nav:first-of-type {
-        left: -12px;
+        left: -11px;
       }
       .nav:last-of-type {
-        right: 6px;
+        right: -4px;
       }
       button {
         padding: 0.5rem;
@@ -36,7 +36,7 @@ const HotProduct = () => {
           paddingInline: "8rem 0.5rem",
         }}
       >
-        <Grid2 container rowSpacing={1} columnSpacing={4}>
+        <Grid2 container rowSpacing={2} columnSpacing={3}>
           <Grid2
             size={3}
             sx={{

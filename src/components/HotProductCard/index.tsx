@@ -23,7 +23,7 @@ const HotProductCard = ({
         navigate(`/${PATH.SHOP}/${productType}`, { state: { to: productType } })
       }
     >
-      <Grid2 container spacing={0} columnSpacing={2}>
+      <Grid2 container spacing={1} columnSpacing={1}>
         <Grid2 size={6} className="left-content">
           <Typography variant="h5">{leftTitle}</Typography>
         </Grid2>

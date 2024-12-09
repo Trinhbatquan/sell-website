@@ -53,6 +53,7 @@ const HotProduct = () => {
               slidesToShow={3}
               indicators={false}
               duration={4000}
+              autoplay={false}
             >
               <HotProductCard
                 leftTitle="GHẾ"

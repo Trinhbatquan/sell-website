@@ -323,6 +323,7 @@ const Product = () => {
             slidesToShow={4}
             indicators={false}
             duration={4000}
+            autoplay={false}
           >
             {getProductListById([1, 3, 5, 7, 9, 11]).map((item) => (
               <ProductCard {...item} isSlide key={item.id} />
@@ -336,6 +337,7 @@ const Product = () => {
             slidesToShow={4}
             indicators={false}
             duration={4000}
+            autoplay={false}
           >
             {getProductListById([2, 4, 6, 8, 10, 12]).map((item) => (
               <ProductCard

@@ -329,6 +329,7 @@ const Detail = () => {
           slidesToShow={4}
           indicators={false}
           duration={4000}
+          autoplay={false}
         >
           {getProductListById([2, 4, 6, 8, 10, 12]).map((item) => (
             <ProductCard {...item} key={item.id} isSlide />
